@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Voices Unfiltered</title>
+</head>
+
+<body style="margin:0; font-family:Arial;">
+
+<!-- HEADER -->
+<div style="height:250px; background-image:url('logo.png'); background-repeat:no-repeat; background-position:center; background-size:contain; background-color:white;">
+</div>
+
+<!-- NAVIGATION -->
+<div style="text-align:right; background-color:brown; padding:10px;">
+<a href="#" onclick="show('home')" style="margin-right:20px; text-decoration:none; color:white;"><u>Home</u></a>
+<a href="#" onclick="show('about')" style="margin-right:20px; text-decoration:none; color:white;"><u>About Us</u></a>
+<a href="#" onclick="show('upload')" style="text-decoration:none; color:white;"><u>Share Story</u></a>
+</div>
+
+<!-- HOME -->
+<section id="home" style="display:block; padding:20px;">
+
+<div style="padding:20px; border-radius:10px; box-shadow:0px 4px 10px rgba(0,0,0,0.2);">
+
+<p style="text-align:center; max-width:800px; margin:auto;">
+Your experiences in life carry important lessons that shape who you are and how you see the world. Even the difficult moments can teach strength, patience, and understanding that you may not notice right away. Life lessons often come from mistakes, challenges, and changes, but they help you grow and become more aware of yourself and others. Every stage of life adds something meaningful to your journey, and these lessons stay with you as guidance for future decisions.</p>
+<br>
+<br>
+<br>
+
+<h3 style="margin-top:30px;">Let's talk about Life Lessons!</h3>
+
+<div style="text-align:center;">
+<video controls style="width:85%; max-width:700px; border-radius:10px; box-shadow:0px 4px 10px rgba(0,0,0,0.3);">
+<source src="your-video.mp4" type="video/mp4">
+</video>
+</div>
+<br>
+<br>
+<br>
+
+
+<h3 style="margin-top:30px;">Community Stories</h3>
+<div id="stories"></div>
+
+</div>
+
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="display:none; padding:20px;">
+
+<div style="padding:20px; border-radius:10px; box-shadow:0px 4px 10px rgba(0,0,0,0.2);">
+<p style="text-indent:45px;"> <strong>Voices Unfiltered</strong> Voices Unfiltered is a storytelling platform where people can freely share real-life experiences, struggles, and lessons without fear of judgment. It is created to serve as a safe and open space where individuals can express their thoughts, emotions, and personal journeys in their own words. Whether it is a story about overcoming challenges, learning from mistakes, or celebrating small victories, every experience shared contributes to a deeper understanding of life and human connection.</p> 
+<p style="text-indent:45px;">The platform encourages honesty and authenticity, allowing users to speak their truth and be heard. It also aims to inspire others by showing that no one is alone in their struggles, and that every story—no matter how simple or complex—has value. Through shared experiences, readers can gain insights, reflect on their own lives, and find comfort, motivation, or even guidance.</p> 
+<p style="text-indent:45px;">At its core, Voices Unfiltered believes that every voice matters. By giving people a place to tell their stories, it helps build a supportive community where empathy, understanding, and growth are continuously fostered.</p>
+<br>
+<br>
+
+<div style="text-align:center;">
+
+<h3 style="background-color:lightgray;"><strong>Authors</strong></h3>
+<div style="display:flex; justify-content:center;">
+<div style="background-color:white; padding:15px; margin:10px 0; border-radius:10px; display:flex; align-items:center; width:400px;">
+<img src="Andrea.jpg" style="width:120px; height:120px; border-radius:50%; object-fit:cover; margin-right:15px;">
+
+<div style="text-align:left;">
+<h4 style="margin:0; line-height:1.2;">Andrea P. Bascuguin</h4>
+<span style="font-size:12px; display:block; margin-top:2px;">February 4, 2006</span>
+</div></div></div>
+
+<div style="display:flex; justify-content:center;">
+<div style="background-color:white; padding:15px; margin:10px 0; border-radius:10px; display:flex; align-items:center; width:400px;">
+<img src="Jourene.jpg" style="width:120px; height:120px; border-radius:50%; object-fit:cover; margin-right:15px;">
+<div style="text-align:left;">
+<h4 style="margin:0; line-height:1.2;">Jourene Lynsae Angelei C. Carlit</h4>
+<span style="font-size:12px; display:block; margin-top:2px;">October 30, 2006</span>
+</div></div></div>
+
+<div style="display:flex; justify-content:center;">
+<div style="background-color:white; padding:15px; margin:10px 0; border-radius:10px; display:flex; align-items:center; width:400px;">
+<img src="Tiffany.jpg" style="width:120px; height:120px; border-radius:50%; object-fit:cover; margin-right:15px;">
+<div style="text-align:left;">
+<h4 style="margin:0; line-height:1.2;">Tiffany G. Rivera</h4>
+<span style="font-size:12px; display:block; margin-top:2px;">February 4, 2006</span>
+</div></div></div>
+
+</div>
+</section>
+
+<!-- UPLOAD -->
+<section id="upload" style="display:none; padding:20px;">
+
+<div style="padding:20px; border-radius:10px; box-shadow:0px 4px 10px rgba(0,0,0,0.2);">
+
+<h2>Share Your Story</h2>
+<input id="username" type="text" placeholder="Your Name" style="width:100%; padding:10px; margin:10px 0;">
+
+<textarea id="content" placeholder="Write your story" style="width:100%; height:120px; padding:10px; margin:10px 0;"></textarea>
+
+<button onclick="add()" style="padding:10px; border-radius:5px; background-color:seagreen; color:white; border:none;">
+Submit
+</button>
+
+<br><br><br>
+
+<h3>Community Stories</h3>
+<div id="user"></div>
+
+</div>
+
+</section>
+<script>
+
+let editId = null;
+
+function show(page){
+let sections=document.getElementsByTagName("section");
+for(let i=0;i<sections.length;i++){
+sections[i].style.display="none";
+}
+document.getElementById(page).style.display="block";
+}
+
+let data = JSON.parse(localStorage.getItem("data")) || [];
+let myPosts = JSON.parse(localStorage.getItem("myPosts")) || [];
+
+function add(){
+
+let name=document.getElementById("username").value.trim();
+let content=document.getElementById("content").value.trim();
+
+if(name=="" || content==""){
+alert("Fill all fields");
+return;
+}
+
+let id=Date.now();
+
+data.push({id:id,name:name,c:content});
+myPosts.push(id);
+
+localStorage.setItem("data",JSON.stringify(data));
+localStorage.setItem("myPosts",JSON.stringify(myPosts));
+
+document.getElementById("username").value="";
+document.getElementById("content").value="";
+
+render();
+show('home');
+}
+
+function del(id){
+
+let newData=[];
+
+for(let i=0;i<data.length;i++){
+if(data[i].id!=id){
+newData.push(data[i]);
+}
+}
+
+data=newData;
+
+localStorage.setItem("data",JSON.stringify(data));
+
+render();
+}
+
+function startEdit(id, text){
+editId=id;
+render();
+
+setTimeout(function(){
+let box=document.getElementById("editBox_"+id);
+if(box){
+box.value=text;
+}
+},0);
+}
+
+function saveEdit(id){
+
+let box=document.getElementById("editBox_"+id);
+let newText=box.value.trim();
+
+if(newText==""){
+alert("Empty story not allowed");
+return;
+}
+
+for(let i=0;i<data.length;i++){
+if(data[i].id==id){
+data[i].c=newText;
+break;
+}
+}
+
+editId=null;
+localStorage.setItem("data",JSON.stringify(data));
+render();
+}
+
+function cancelEdit(){
+editId=null;
+render();
+}
+
+function render(){
+
+let home=document.getElementById("stories");
+let upload=document.getElementById("user");
+
+home.innerHTML="";
+upload.innerHTML="";
+
+if(data.length==0){
+home.innerHTML="<div>No stories yet.</div>";
+upload.innerHTML="<div>No stories yet.</div>";
+return;
+}
+
+for(let i=0;i<data.length;i++){
+
+let post=data[i];
+let isOwner=false;
+
+for(let j=0;j<myPosts.length;j++){
+if(myPosts[j]==post.id){
+isOwner=true;
+}
+}
+
+let card="<div style='background-color:white; padding:10px; margin:10px 0; border-radius:10px;'>";
+
+// NAME COLOR
+card+="<h4 style='color:darkblue;'>"+post.name+"</h4>";
+
+// INLINE EDIT SYSTEM
+if(editId==post.id){
+
+card+="<textarea id='editBox_"+post.id+"' style='width:100%; height:80px; padding:10px;'>"+post.c+"</textarea>";
+
+card+="<br><button onclick='saveEdit("+post.id+")' style='margin-right:10px; background-color:green; color:white; border:none; padding:5px;'>Save</button>";
+card+="<button onclick='cancelEdit()'>Cancel</button>";
+
+} else {
+
+card+="<p>"+post.c+"</p>";
+
+}
+
+if(isOwner){
+card+="<button onclick='startEdit("+post.id+", `"+post.c.replace(/`/g,"'")+"`)'>Edit</button> ";
+card+="<button onclick='del("+post.id+")'>Delete</button>";
+}
+
+card+="</div>";
+
+home.innerHTML+=card;
+upload.innerHTML+=card;
+
+}
+}
+
+render();
+
+</script>
+
+</body>
+</html>
+</body>
+</html>
